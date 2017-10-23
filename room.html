@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>JS</title>
+    </head>
+    <body>
+        <h1>JS</h1>
+        <script type="text/javascript">
+            var room = {
+                width: 5,
+                length: 10,
+                height: 3,
+                square: function (width, length) {
+                    return width * length;
+                },
+                walls: function (width, length, height) {
+                    return width * length * height;
+                },
+                meaterials: {
+                    wallpaper: {
+                        normal: 10,
+                        fabric: 20,
+                        vinyl: 30
+                    },
+                    paint: {
+                        green: 15,
+                        yellow: 16,
+                        white: 14
+                    },
+                    whitewash: 17
+                }
+            };
+
+
+            room.width = parseFloat(prompt('Enter width', 4));
+            room.length = parseFloat(prompt('Enter length', 5));
+            room.height = parseFloat(prompt('Enter height', 3));
+
+            console.log('Square: ' + room.square(room.width, room.length).toFixed(2));
+            console.log('Walls: ' + room.walls(room.width, room.length, room.height).toFixed(2));
+
+            var act = prompt('Enter an action ("wallpaper", "paint", "whitewash")', "wallpaper");
+            if (act == 'wallpaper') {
+                var type = prompt('Enter type of wallpaper ("normal", "fabric", "vinly")', "normal");
+                if (type in room.meaterials.wallpaper) {
+                    console.log('for 1 m: ' + room.meaterials.wallpaper[type]);
+                    console.log('Cost: ' + (room.walls(room.width, room.length, room.height) * room.meaterials.wallpaper[type]).toFixed(2));
+                } else {console.log('Unknown wallpaper type');}
+            } else if (act == 'paint') {
+                var color = prompt('Enter color of paint ("green", "yellow", "white")', "green");
+                if (color in room.meaterials.paint) {
+                    console.log('for 1 m: ' + room.meaterials.paint[color]);
+                    console.log('Cost: ' + (room.walls(room.width, room.length, room.height) * room.meaterials.paint[color]).toFixed(2));
+                } else {console.log('Unknown color');}
+            } else if (act == 'whitewash') {
+                console.log('for 1 m: ' + room.meaterials.whitewash);
+                console.log('Cost: ' + (room.walls(room.width, room.length, room.height) * room.meaterials.whitewash).toFixed(2));
+            } else {
+                console.log('Unknown action');
+            }
+
+
+
+        </script>
+    </body>
+</html>
