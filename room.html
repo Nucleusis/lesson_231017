@@ -69,10 +69,10 @@
                 }
 
                 console.log('room #' + (i + 1));
-                console.log('    action/matirials: ' + roomResult[i].materials.join(', '));
-                console.log('    price for 1 m: ' + roomResult[i].price);
-                console.log('    walls square: ' + roomResult[i].walls);
-                console.log('    cost: ' + roomResult[i].cost);
+                console.log('    action/matirials:  ' + roomResult[i].materials.join(', '));
+                console.log('    price for 1 m:     ' + roomResult[i].price);
+                console.log('    walls square:      ' + roomResult[i].walls.toFixed(2));
+                console.log('    cost:              ' + roomResult[i].cost.toFixed(2));
                 console.log('');
                 next = confirm('Another room?');
                 i++;
@@ -82,7 +82,7 @@
             for (var j = 0; j < roomResult.length; j++) {
                 total += roomResult[j].cost;
             }
-            console.log('Total cost: ' + total);
+            console.log('Total cost: ' + total.toFixed(2));
 
         </script>
     </body>
