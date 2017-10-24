@@ -31,35 +31,58 @@
                 }
             };
 
+            roomResult = [];
+            var i = 0;
+            var next = true;
+            while (next) {
+                roomResult.push({});
+                room.width = parseFloat(prompt('Enter width', 4));
+                room.length = parseFloat(prompt('Enter length', 5));
+                room.height = parseFloat(prompt('Enter height', 3));
 
-            room.width = parseFloat(prompt('Enter width', 4));
-            room.length = parseFloat(prompt('Enter length', 5));
-            room.height = parseFloat(prompt('Enter height', 3));
+                roomResult[i].walls = room.walls(room.width, room.length, room.height);
+                roomResult[i].materials = ['unknown'];
+                roomResult[i].price = 0;
+                roomResult[i].cost = 0;
 
-            console.log('Square: ' + room.square(room.width, room.length).toFixed(2));
-            console.log('Walls: ' + room.walls(room.width, room.length, room.height).toFixed(2));
+                var act = prompt('Enter an action ("wallpaper", "paint", "whitewash")', "wallpaper");
+                if (act == 'wallpaper') {
+                    var type = prompt('Enter type of wallpaper ("normal", "fabric", "vinly")', "normal");
+                    if (type in room.meaterials.wallpaper) {
+                        roomResult[i].materials = ['wallpaper', type];
+                        roomResult[i].price = room.meaterials.wallpaper[type];
+                        roomResult[i].cost = roomResult[i].price * roomResult[i].walls;
+                    } else {alert('Unknown wallpaper type');}
+                } else if (act == 'paint') {
+                    var color = prompt('Enter color of paint ("green", "yellow", "white")', "green");
+                    if (color in room.meaterials.paint) {
+                        roomResult[i].materials = ['paint', color];
+                        roomResult[i].price = room.meaterials.paint[color];
+                        roomResult[i].cost = roomResult[i].price * roomResult[i].walls;
+                    } else {alert('Unknown color');}
+                } else if (act == 'whitewash') {
+                    roomResult[i].materials = ['whitewash'];
+                    roomResult[i].price = room.meaterials.whitewash;
+                    roomResult[i].cost = roomResult[i].price * roomResult[i].walls;
+                } else {
+                    alert('Unknown action');
+                }
 
-            var act = prompt('Enter an action ("wallpaper", "paint", "whitewash")', "wallpaper");
-            if (act == 'wallpaper') {
-                var type = prompt('Enter type of wallpaper ("normal", "fabric", "vinly")', "normal");
-                if (type in room.meaterials.wallpaper) {
-                    console.log('for 1 m: ' + room.meaterials.wallpaper[type]);
-                    console.log('Cost: ' + (room.walls(room.width, room.length, room.height) * room.meaterials.wallpaper[type]).toFixed(2));
-                } else {console.log('Unknown wallpaper type');}
-            } else if (act == 'paint') {
-                var color = prompt('Enter color of paint ("green", "yellow", "white")', "green");
-                if (color in room.meaterials.paint) {
-                    console.log('for 1 m: ' + room.meaterials.paint[color]);
-                    console.log('Cost: ' + (room.walls(room.width, room.length, room.height) * room.meaterials.paint[color]).toFixed(2));
-                } else {console.log('Unknown color');}
-            } else if (act == 'whitewash') {
-                console.log('for 1 m: ' + room.meaterials.whitewash);
-                console.log('Cost: ' + (room.walls(room.width, room.length, room.height) * room.meaterials.whitewash).toFixed(2));
-            } else {
-                console.log('Unknown action');
+                console.log('room #' + (i + 1));
+                console.log('    action/matirials: ' + roomResult[i].materials.join(', '));
+                console.log('    price for 1 m: ' + roomResult[i].price);
+                console.log('    walls square: ' + roomResult[i].walls);
+                console.log('    cost: ' + roomResult[i].cost);
+                console.log('');
+                next = confirm('Another room?');
+                i++;
             }
-
-
+            console.log('--------------------');
+            var total = 0;
+            for (var j = 0; j < roomResult.length; j++) {
+                total += roomResult[j].cost;
+            }
+            console.log('Total cost: ' + total);
 
         </script>
     </body>
